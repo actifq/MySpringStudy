@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.board.dao.BoardVO" alias="Board" />
+		<typeAlias type="com.member.dao.MemberDTO" alias="Member" />
+		<typeAlias type="com.board.dao.ReplyVO" alias="Reply" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<!-- type = JDBC ( Auto ) type = MANAGED ( 수동 ) COMMIT , ROLLBACK -->
+			<dataSource type="POOLED">
+				<!-- UNPOOLED : 연결요청시마다 열기,닫기를 반복 POOLED : DBCP => maxActive : 8 => maxIdle 
+					: 8 => maxWait : 10000 JNDI : 미리 톰캣에 만들어 놓고 연결만 하는 프로그램 -->
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@211.238.142.81:1521:ORCL" />
+				<property name="username" value="scott" />
+				<property name="password" value="tiger" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/board/dao/board-mapper.xml" />
+		<mapper resource="com/member/dao/member-mapper.xml" />
+	</mappers>
+</configuration>
