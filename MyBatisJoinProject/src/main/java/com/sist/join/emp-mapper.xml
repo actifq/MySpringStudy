@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.join.emp-mapper">
+  <resultMap type="Emp" id="empList">
+    <!-- 
+         List<EmpVO> empList
+     -->
+      <result property="empno" column="empno"/>
+     <!-- 
+           vo.setEmpno(rs.getInt("empno"));
+      -->
+      <result property="ename" column="ename"/>
+      <result property="job" column="job"/>
+      <result property="mgr" column="mgr"/>
+      <result property="hiredate" column="hiredate"/>
+      <result property="sal" column="sal"/>
+      <result property="comm" column="comm"/>
+      <result property="deptno" column="deptno"/>
+      <result property="dvo.dname" column="dname"/>
+      <result property="dvo.loc" column="loc"/>
+  </resultMap>
+  <sql id="join_sql">
+    SELECT empno,ename,job,NVL(mgr,0) as mgr,
+           hiredate,sal,NVL(comm,0) as comm,
+           emp.deptno,dname,loc
+    FROM emp,dept
+    WHERE emp.deptno=dept.deptno
+  </sql>
+  <select id="empdeptJoinAllData" resultMap="empList">
+    <include refid="join_sql"/>
+  </select>
+  <select id="empdeptJoinFindData" resultMap="empList" parameterType="int">
+    <include refid="join_sql"/>
+    AND empno=#{empno}
+  </select>
+</mapper>
+
+
+
+
