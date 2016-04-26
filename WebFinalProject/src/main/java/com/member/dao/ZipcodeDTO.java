@@ -6,6 +6,12 @@ public class ZipcodeDTO {
    private String gugun;
    private String dong;
    private String bunji;
+   private String addr;
+   
+public String getAddr() {
+	
+	return sido+" "+gugun+" "+dong+" "+bunji;
+}
 public String getZipcode() {
 	return zipcode;
 }

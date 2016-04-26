@@ -8,12 +8,12 @@
 <link rel="stylesheet" type="text/css" href="table.css">
 <link rel="stylesheet" type="text/css" href="user/shadow/css/shadowbox.css">
 <script type="text/javascript" src="user/shadow/js/shadowbox.js"></script>
-<script type="text/javascript" >
+<script type="text/javascript">
 Shadowbox.init({
 	players:["iframe"]
 });
-
-function idcheck(){
+function idcheck()
+{
 	Shadowbox.open({
 		content:'user/member/idcheck.jsp',
 		player:'iframe',
@@ -22,7 +22,16 @@ function idcheck(){
 		title:'아이디 중복체크'
 	});
 }
-
+function postfind()
+{
+	Shadowbox.open({
+		content:'user/member/postfind.jsp',
+		player:'iframe',
+		width:490,
+		height:350,
+		title:'우편번호 찾기'
+	});
+}
 </script>
 </head>
 <body>

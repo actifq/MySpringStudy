@@ -12,7 +12,7 @@ public class FileConfig {
     	List<String> list=new ArrayList<String>();
     	try
     	{
-    		String path="C:\\springDev\\springStudy\\WebFinalProject\\src\\main\\java\\";
+    		String path="C:\\Users\\sist\\git\\Web\\WebFinalProject\\src\\main\\java\\";
     		path=path+pack.replace('.', '\\');
     		// \\com\\sist\\board
     		File dir=new File(path);

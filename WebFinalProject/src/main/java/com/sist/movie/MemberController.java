@@ -1,12 +1,11 @@
 package com.sist.movie;
 
-import java.util.StringTokenizer;
-
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import com.member.dao.MemberDAO;
 import com.member.dao.MemberDTO;
+import com.member.dao.ZipcodeDTO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -55,6 +54,19 @@ public class MemberController {
 	   req.setAttribute("count", count);
 	   
 	   return "user/member/idcheck_ok.jsp";
+   }
+   
+   @RequestMapping("postfind_ok.do")
+   public String postfine_ok(HttpServletRequest req)
+   throws Exception{
+	   // android,ajax(js) ==> EUC-KR 인식을 못함.. UTF-8로만 받아야됨
+	   req.setCharacterEncoding("UTF-8");
+	   String dong=req.getParameter("dong");
+	   List<ZipcodeDTO> list=MemberDAO.postfindAllData(dong);
+	   int count=MemberDAO.postfindCount(dong);
+	   req.setAttribute("list", list);
+	   req.setAttribute("count", count);
+	   return "user/member/postfind_ok.jsp";
    }
 }
 

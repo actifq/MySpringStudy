@@ -11,14 +11,16 @@
 <body>
   <center>
      <h3>${vo.title } 상세보기</h3>
+     <c:if test="${sessionScope.id!=null }">
      <table id="table_content">
-     	<tr>
-     		<td align=right>
-     			<a href="">
-     				<img src="images/btn_buy.gif"></a>
-     		</td>
-     	</tr>
+       <tr>
+        <td align=right>
+         <a href="movie_reserve.do">
+         <img src="images/btn_buy.gif"></a>
+        </td>
+       </tr>
      </table>
+     </c:if>
      <table id="table_content">
        <tr>
         <td width=30% class="tdcenter" rowspan="6">
@@ -48,11 +50,22 @@
        </tr>
      </table>
      <table id="table_content">
-     	<tr>
-     		<td class="tdcenter">
-				<img src="images/desc.png">     		
-     		</td>
-     	</tr>
+       <tr>
+         <td>
+           <div style="overflow: auto;width:450px;height:500px">
+            <table id="table_content">
+             <c:forEach var="vo" items="${list }">
+              <tr>
+               <td>${vo }</td>
+              </tr>
+             </c:forEach>
+            </table>
+           </div>
+         </td>
+         <td class="tdcenter">
+          <img src="images/desc.png">
+         </td>
+       </tr>
      </table>
   </center>
 </body>

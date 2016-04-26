@@ -29,7 +29,7 @@ public class MovieController {
 		
 		MovieManager m=new MovieManager();
 		MovieDTO vo=m.movieDetail(Integer.parseInt(no));
-		
+		List<String> list=new ArrayList<String>();
 		File file=new File("C:\\springDev\\springStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WebFinalProject\\images\\desc.txt");
 		   if(file.exists())
 			   file.delete();
@@ -37,14 +37,43 @@ public class MovieController {
 		   {
 		    String json=m.review_data(vo.getTitle(), i);
 		    //System.out.println(json);
-		    m.jsonParse(json);
+		    List<String> mList=m.jsonParse(json);
+		    for(String re:mList){
+		    	list.add(re);
+		    	
+		    }
 		   }
 		
 		m.wordcloud();
 		req.setAttribute("vo", vo);
+		req.setAttribute("list", list);
 		req.setAttribute("jsp", "movie/movie_detail.jsp");
 		
 		
 		return "user/main.jsp";
 	}
+	
+	@RequestMapping("movie_reserve.do")
+	public String movie_reserve(HttpServletRequest req){
+		req.setAttribute("jsp", "movie/movie_reserve.jsp");
+		return "user/main.jsp";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

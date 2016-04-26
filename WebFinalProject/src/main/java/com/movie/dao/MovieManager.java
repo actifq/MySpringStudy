@@ -199,8 +199,10 @@ public class MovieManager {
 	   return sb.toString();
    }
    // json,xml,txt,csv {key:value},{},{}
-   public void jsonParse(String json)
+   public List<String> jsonParse(String json)
    {
+	   List<String> list=new ArrayList<String>();
+	   
 	   try
 	   {
 		   JSONParser jp=new JSONParser();
@@ -228,31 +230,31 @@ public class MovieManager {
 		   {
 			   JSONObject obj=(JSONObject)item.get(i);
 			   String data=(String)obj.get("description");
+			   data=data.replaceAll("[A-Za-z0-9]", "");
+			   data=data.replace("&", "");
+			   data=data.replace("/", "");
+			   data=data.replace(";", "");
+			   data=data.replace("#", "");
+			   data=data.replace(".", "");
+			   data=data.replace("+", "");
+			   data=data.replace("?", "");
+			   data=data.replace("!", "");
+			   data=data.replace(",", "");
+			   data=data.replace("*", "");
+			   data=data.replace("せ", "");
+			   data=data.replace("~", "");
+			   data=data.replace("ば", "");
+			   data=data.replace("^^", "");
+			   data=data.replace("ぬ", "");
+			   data=data.replace(":)", "");
+			   data=data.replace("ぞ", "");
+			   data=data.replace("(", "");
+			   data=data.replace(")", "");
+			   data=data.replace("_", "");
+			   data=data.replace(":", "");
+			   list.add(data);
 			   desc+=data+"\n";
 		   }
-		   desc=desc.replaceAll("[A-Za-z0-9]", "");
-		   desc=desc.replace("&", "");
-		   desc=desc.replace("/", "");
-		   desc=desc.replace(";", "");
-		   desc=desc.replace("#", "");
-		   desc=desc.replace(".", "");
-		   desc=desc.replace("+", "");
-		   desc=desc.replace("?", "");
-		   desc=desc.replace("!", "");
-		   desc=desc.replace(",", "");
-		   desc=desc.replace("*", "");
-		   desc=desc.replace("せ", "");
-		   desc=desc.replace("~", "");
-		   desc=desc.replace("ば", "");
-		   desc=desc.replace("^^", "");
-		   desc=desc.replace("ぬ", "");
-		   desc=desc.replace(":)", "");
-		   desc=desc.replace("ぞ", "");
-		   desc=desc.replace("(", "");
-		   desc=desc.replace(")", "");
-		   desc=desc.replace("_", "");
-		   desc=desc.replace(":", "");
-		   //System.out.println(desc);
 		   FileWriter fw=new FileWriter("C:\\springDev\\springStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WebFinalProject\\images\\desc.txt",true);
 		   fw.write(desc);
 		   fw.close();
@@ -260,6 +262,7 @@ public class MovieManager {
 	   {
 		   System.out.println(ex.getMessage());
 	   }
+	return list;
    }
    public void wordcloud()
    {
@@ -268,7 +271,7 @@ public class MovieManager {
 		   RConnection rc=new RConnection();
 		   rc.voidEval("library(KoNLP)");
 		   rc.voidEval("library(wordcloud)");
-		   rc.voidEval("png(\"C:/springDev/springStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/WebFinalProject/images/desc.png\")");
+		   rc.voidEval("png(\"C:/springDev/springStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/WebFinalProject/images/desc.png\",width=450,height=500)");
 		   rc.voidEval("data<-readLines(\"C:/springDev/springStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/WebFinalProject/images/desc.txt\")");
 		   rc.voidEval("review<-sapply(data,extractNoun,USE.NAMES=F)");
 		   rc.voidEval("word<-table(unlist(review))");

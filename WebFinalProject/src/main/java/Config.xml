@@ -5,6 +5,10 @@
 		<typeAlias type="com.board.dao.BoardVO" alias="Board" />
 		<typeAlias type="com.member.dao.MemberDTO" alias="Member" />
 		<typeAlias type="com.board.dao.ReplyVO" alias="Reply" />
+		<typeAlias type="com.member.dao.ZipcodeDTO" alias="Zipcode" />
+		<typeAlias type="com.reserve.dao.MovieInfoVO" alias="Movie" />
+		<typeAlias type="com.reserve.dao.TheaterInfoVO" alias="Theater" />
+		<typeAlias type="com.reserve.dao.TimeInfoVO" alias="Time" />
 	</typeAliases>
 
 	<environments default="development">
@@ -25,5 +29,6 @@
 	<mappers>
 		<mapper resource="com/board/dao/board-mapper.xml" />
 		<mapper resource="com/member/dao/member-mapper.xml" />
+		<mapper resource="com/reserve/dao/movie-mapper.xml" />
 	</mappers>
 </configuration>
