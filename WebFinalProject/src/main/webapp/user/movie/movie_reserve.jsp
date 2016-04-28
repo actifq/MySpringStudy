@@ -8,6 +8,37 @@
 <link rel="stylesheet" type="text/css" href="movie.css">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="ajax.js"></script>
+<script type="text/javascript">
+$(function(){
+		sendMessage("POST", "movie_info.do", null, movieCallback);
+		sendMessage("POST", "theater_info.do", null, theaterCallback);
+});
+
+function movieCallback(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){
+			$('#mi').html(httpRequest.responseText);
+		}
+	}
+};
+
+function theaterCallback(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){
+			$('#ti').html(httpRequest.responseText);
+		}
+	}
+};
+</script>
+
+<script type="text/javascript">
+
+$(function(){
+	sendMessage("POST", "theater_info.do", null, theaterCallback);
+});
+</script>
 <body>
 
 	<center>
@@ -15,8 +46,8 @@
 		
 		<table id="table_content" height=450>
 			<tr>
-				<td width=15% class="tdcenter" height=300></td>
-				<td width=20% class="tdcenter" height=300></td>
+				<td width=15% class="tdcenter" height=300 id="mi"></td>
+				<td width=20% class="tdcenter" height=300 id="ti"></td>
 				<td width=35% class="tdcenter" height=300></td>
 				<td width=30% rowspan="2" class="tdcenter" valign="top">예매정보</td>
 			</tr>

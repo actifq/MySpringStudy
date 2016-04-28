@@ -34,11 +34,11 @@ h1{
 }
 
 body {	
+   	background: #000000 url(images/bg2.jpg) repeat fixed;
     font-family: ¸¼Àº °íµñ;
     font-size: 12px;
     line-height: 18px;
     color: black;
-    background: #000000 url(images/bg.jpg) no-repeat top center fixed;
 }
 
 .clear{

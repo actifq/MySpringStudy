@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.movie.dao.*;
+import com.reserve.dao.MovieDAO;
+import com.reserve.dao.MovieInfoVO;
+import com.reserve.dao.TheaterInfoVO;
 
 import java.io.File;
 import java.util.*;
@@ -57,6 +60,22 @@ public class MovieController {
 	public String movie_reserve(HttpServletRequest req){
 		req.setAttribute("jsp", "movie/movie_reserve.jsp");
 		return "user/main.jsp";
+	}
+	
+	@RequestMapping("movie_info.do")
+	public String movie_info(HttpServletRequest req){
+		
+		List<MovieInfoVO> list=MovieDAO.movieInfoData();
+		req.setAttribute("list", list);
+		
+		return "user/movie/movie_info.jsp";
+	}
+	
+	@RequestMapping("theater_info.do")
+	public String theater_info(HttpServletRequest req){
+		List<TheaterInfoVO> list=MovieDAO.theaterInfoData();
+		req.setAttribute("list", list);
+		return "user/movie/theater_info.jsp";
 	}
 }
 
