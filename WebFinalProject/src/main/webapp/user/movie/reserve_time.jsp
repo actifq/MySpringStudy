@@ -14,6 +14,7 @@ $(function(){
 	$('.res_time').click(function(){
 		var time=$(this).text();
 		$('#span_time').text("상영시간:"+time);
+		$('#time_jsp').val(time);
 		sendMessage("POST", "inwon_info.do", null, inwonInfo)
 	});
 });

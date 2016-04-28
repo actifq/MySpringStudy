@@ -55,4 +55,32 @@ public class MovieDAO {
     	session.close();
     	return list;
     }
+    
+    // ¿¹¾à
+    public static List<ReserveVO> reserveUserAllData(String id)
+    {
+    	SqlSession session=ssf.openSession();
+    	List<ReserveVO> list=session.selectList("reserveUserAllData",id);
+    	session.close();
+    	return list;
+    }
+    public static List<ReserveVO> reserveAdminAllData()
+    {
+    	SqlSession session=ssf.openSession();
+    	List<ReserveVO> list=session.selectList("reserveAdminAllData");
+    	session.close();
+    	return list;
+    }
+    public static void reserveInsert(ReserveVO vo)
+    {
+    	SqlSession session=ssf.openSession(true);
+    	session.insert("reserveInsert",vo);
+    	session.close();
+    }
+    public static void reserveOkUpdate(int no)
+    {
+    	SqlSession session=ssf.openSession(true);
+    	session.update("reserveOkUpdate",no);
+    	session.close();
+    }
 }

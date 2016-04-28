@@ -16,6 +16,7 @@ $(function(){
 		var month=$(this).attr("month");
 		var day=$(this).text();
 		$('#span_date').text("øπæ‡¿œ:"+year+"-"+month+"-"+day);
+		$('#day_jsp').val(year+"-"+month+"-"+day);
 		sendMessage("POST", "reserve_time.do",null, timeInfo);
 	});
 });

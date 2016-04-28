@@ -14,6 +14,7 @@ $(function(){
 	$('.theater_name').click(function(){
 		var tname=$(this).text();
 		$('#span_tname').text("±ÿ¿Â∏Ì:"+tname);
+		$('#theater_jsp').val(tname);
 		sendMessage("POST", "reserve_date.do", null, reserveDate);
 	});
 });

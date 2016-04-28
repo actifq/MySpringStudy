@@ -8,6 +8,45 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="user/movie/table.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#grade').change(function(){
+		var inwon=$('#grade').val();
+		$('#span_inwon').text("인원:"+inwon+"명");
+		$('#span_price').text("금액:"+(inwon*9000)+"원");
+		$('#inwon_jsp').val(inwon);
+		$('#price_jsp').val(inwon*9000);
+		
+		$('#resImg').attr("src","images/res.png");
+		$('#resImg').css("cursor","pointer");
+	});
+	$('#resImg').click(function(){
+		var src=$('#resImg').attr("src");
+		if(src=="images/res_d.png")
+		{
+			return;
+		}
+		else
+		{
+			//alert("예매 시작");
+			/* var title=$('#span_title').text();
+			var theater=$('#span_theater').text();
+			var day=$('#span_date').text();
+			var time=$('#span_time').text();
+			var inwon=$('#span_inwon').text();
+			var price=$('#span_price').text();
+			
+			var param="title="+encodeURIComponent(title)
+			         +"&theater="+encodeURIComponent(theater)
+			         +"&day="+encodeURIComponent(day)
+			         +"&time="+encodeURIComponent(time)
+			         +"&inwon="+encodeURIComponent(inwon)
+			         +"&price="+encodeURIComponent(price); */
+			$('#res_frm').submit();
+		}
+	});
+});
+</script>
 </head>
 <body>
   <center>

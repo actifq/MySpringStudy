@@ -1,12 +1,14 @@
 package com.sist.movie;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.movie.dao.*;
 import com.reserve.dao.MovieDAO;
 import com.reserve.dao.MovieInfoVO;
+import com.reserve.dao.ReserveVO;
 import com.reserve.dao.TheaterInfoVO;
 
 import java.io.File;
@@ -185,13 +187,52 @@ public class MovieController {
     	req.setAttribute("list", list);
     	return "user/movie/reserve_time.jsp";
     }
-    
     @RequestMapping("inwon_info.do")
-    	public String inwon_info(HttpServletRequest req){
-    	
-    	return "user/moveireserve_inwn.jsp";
-    	
+    public String inwon_info(HttpServletRequest req)
+    {
+    	return "user/movie/reserve_inwon.jsp";
     }
+    @RequestMapping("reserve_ok.do")
+    public String reserve_ok(HttpServletRequest req)
+    throws Exception
+    {
+    	req.setCharacterEncoding("EUC-KR");
+    	String title=req.getParameter("title");
+    	String theater=req.getParameter("theater");
+    	String day=req.getParameter("day");
+    	String time=req.getParameter("time");
+    	String inwon=req.getParameter("inwon");
+    	String price=req.getParameter("price");
+    	/*System.out.println(title+"-"+theater+"-"+day+"-"
+    			+time+"-"+inwon+"-"+price);*/
+    	HttpSession session=req.getSession();
+    	String id=(String)session.getAttribute("id");
+    	ReserveVO vo=new ReserveVO();
+    	vo.setId(id);
+    	vo.setTitle(title);
+    	vo.setTheater(theater);
+    	vo.setTime(time);
+    	vo.setDay(day);
+    	vo.setInwon(Integer.parseInt(inwon));
+    	vo.setPrice(Integer.parseInt(price));
+    	MovieDAO.reserveInsert(vo);
+    	//List<ReserveVO> list=MovieDAO.reserveUserAllData(id);
+    	//req.setAttribute("list", list);
+    	//req.setAttribute("jsp", "movie/mypage.jsp");
+    	return "user/movie/reserve_ok.jsp";
+    }
+    
+    @RequestMapping("mypage.do")
+    public String mypage(HttpServletRequest req){
+    	
+    	HttpSession session=req.getSession();
+    	String id=(String)session.getAttribute("id");
+    	List<ReserveVO> list=MovieDAO.reserveUserAllData(id);
+    	req.setAttribute("list", list);
+    	req.setAttribute("jsp", "movie/mypage.jsp");
+    	return "user/main.jsp";
+    }
+    
 }
 
 

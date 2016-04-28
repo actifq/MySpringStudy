@@ -18,6 +18,7 @@ $(function(){
 		$('#poster_div').html("<img src='"+img+"' width=150 height=170>");
 		$('#span_title').text("");
 		$('#span_title').text(title);
+		$('#title_jsp').val(title);
 		var param="mno="+$(this).attr("id");
 		sendMessage("POST", "theater_info.do", param, theaterInfo)
 	});

@@ -65,7 +65,15 @@ function movieCallback()
             </tr>
             <tr>
               <td class="tdcenter">
-                 <img src="images/res_d.png" border=0>
+                 <form method="post" action="reserve_ok.do" id="res_frm">
+                  <input type="hidden" id="title_jsp" name="title">
+                  <input type="hidden" id="theater_jsp" name="theater">
+                  <input type="hidden" id="day_jsp" name="day">
+                  <input type="hidden" id="time_jsp" name="time">
+                  <input type="hidden" id="inwon_jsp" name="inwon">
+                  <input type="hidden" id="price_jsp" name="price">
+                 </form>
+                 <img src="images/res_d.png" border=0 id="resImg">
               </td>
             </tr>
           </table>

@@ -17,6 +17,38 @@
     SELECT time FROM timeInfo
     WHERE tno=#{tno}
   </select>
+  <!-- 
+        추가(예약)
+   -->
+   <insert id="reserveInsert" parameterType="Reserve">
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(no)+1,1) as no FROM reserve
+    </selectKey>
+    INSERT INTO reserve VALUES(#{no},#{id},#{title},
+    #{theater},#{day},#{time},#{inwon},#{price},0)
+   </insert>
+   <!-- 
+       mypage(출력)
+    -->
+    <select id="reserveUserAllData" resultType="Reserve" parameterType="String">
+      SELECT * FROM reserve
+      WHERE id=#{id}
+    </select>
+    <!-- 
+       admin(출력)
+     -->
+     <select id="reserveAdminAllData" resultType="Reserve">
+       SELECT * FROM reserve
+       WHERE res_check=0
+     </select>
+     <!-- 
+                 승인
+      -->
+     <update id="reserveOkUpdate" parameterType="int">
+      UPDATE reserve SET
+      res_check=1
+      WHERE no=#{no}
+     </update>
 </mapper>
 
 
