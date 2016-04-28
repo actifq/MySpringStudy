@@ -233,6 +233,25 @@ public class MovieController {
     	return "user/main.jsp";
     }
     
+    @RequestMapping("admin.do")
+    public String admin(HttpServletRequest req){
+    	
+    	List<ReserveVO> list=MovieDAO.reserveAdminAllData();
+    	req.setAttribute("list", list);
+    	req.setAttribute("jsp", "movie/admin.jsp");
+    	return "user/main.jsp";
+    }
+    
+    @RequestMapping("admin_ok.do")
+    public String admin_ok(HttpServletRequest req){
+    	
+    	String no=req.getParameter("no");
+    	MovieDAO.reserveOkUpdate(Integer.parseInt(no));
+
+    	
+    	
+    	return "user/movie/admin_ok.jsp";
+    }
 }
 
 

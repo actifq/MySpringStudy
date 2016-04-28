@@ -68,7 +68,7 @@
 						   <li><a href="mypage.do">MyPage</a></li>
 						  </c:if>
 						  <c:if test="${sessionScope.admin==1 }">
-						   <li><a href="reserve.do">예약현황</a></li>
+						   <li><a href="admin.do">예약현황</a></li>
 						  </c:if>
 						</c:if>
 					</ul>

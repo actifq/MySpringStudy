@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="movie.css">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -24,14 +26,52 @@
           title: '예매현황'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
         
         var chart1 = new google.visualization.ColumnChart(document.getElementById("piechart1"));
         chart1.draw(data, options);
 
       }
+      $(function () {
+    	    $('#container').highcharts({
+    	        chart: {
+    	            plotBackgroundColor: null,
+    	            plotBorderWidth: null,
+    	            plotShadow: false,
+    	            type: 'pie'
+    	        },
+    	        title: {
+    	            text: '2016년 4월 영화 예매 현황'
+    	        },
+    	        tooltip: {
+    	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    	        },
+    	        plotOptions: {
+    	            pie: {
+    	                allowPointSelect: true,
+    	                cursor: 'pointer',
+    	                dataLabels: {
+    	                    enabled: true,
+    	                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+    	                    style: {
+    	                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+    	                    }
+    	                }
+    	            }
+    	        },
+    	        series: [{
+    	            name: '영화명',
+    	            colorByPoint: true,
+    	            data: [
+    	               <c:forEach var="vo" items="${list}">
+    	               {
+    	                name: '<c:out value="${vo.title}"/>',
+    	                y: <c:out value="${vo.reserve}"/>
+    	               }, 
+    	               </c:forEach>
+    	            ]
+    	        }]
+    	    });
+    	});
     </script>
 
 </head>
@@ -64,7 +104,7 @@
     <table id="table_content">
      <tr>
       <td class="tdcenter">
-      <div id="piechart" style="width: 450px; height: 550px;"></div>
+      <div id="container" style="width: 450px; height: 550px;"></div>
       </td>
       <td class="tdcenter">
       <div id="piechart1" style="width: 450px; height: 550px;"></div>

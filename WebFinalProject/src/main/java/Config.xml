@@ -9,6 +9,7 @@
 		<typeAlias type="com.reserve.dao.MovieInfoVO" alias="Movie" />
 		<typeAlias type="com.reserve.dao.TheaterInfoVO" alias="Theater" />
 		<typeAlias type="com.reserve.dao.TimeInfoVO" alias="Time" />
+		<typeAlias type="com.reserve.dao.ReserveVO" alias="Reserve" />
 	</typeAliases>
 
 	<environments default="development">
@@ -25,7 +26,7 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
+
 	<mappers>
 		<mapper resource="com/board/dao/board-mapper.xml" />
 		<mapper resource="com/member/dao/member-mapper.xml" />
