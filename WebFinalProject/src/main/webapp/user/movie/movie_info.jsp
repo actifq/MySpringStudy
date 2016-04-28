@@ -7,6 +7,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="user/movie/table.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="ajax.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.movie_name').click(function(){
+		var img=$(this).attr("img");
+		var title=$(this).text();
+		$('#poster_div').html("");
+		$('#poster_div').html("<img src='"+img+"' width=150 height=170>");
+		$('#span_title').text("");
+		$('#span_title').text(title);
+		var param="mno="+$(this).attr("id");
+		sendMessage("POST", "theater_info.do", param, theaterInfo)
+	});
+});
+function theaterInfo()
+{
+	if(httpRequest.readyState==4)
+	{
+		if(httpRequest.status==200)
+		{
+			
+			$('#ti').html(httpRequest.responseText);
+		}
+	}
+}
+</script>
 </head>
 <body>
   <center>
@@ -15,8 +42,8 @@
         <th>영화정보</th>
       </tr>
       <c:forEach var="vo" items="${list }">
-        <tr>
-          <td>${vo.title }</td>
+        <tr class="dataTr">
+          <td class="movie_name" id="${vo.mno }" img="${vo.poster }">${vo.title }</td>
         </tr>
       </c:forEach>
     </table>

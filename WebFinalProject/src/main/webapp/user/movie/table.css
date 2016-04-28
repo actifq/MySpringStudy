@@ -6,6 +6,7 @@
 	border-top-style: solid;
 	border-bottom-color: #333;
 	border-top-color: #333;
+	
 }
 #table_content th,td{
 	margin: 0px;
@@ -24,6 +25,11 @@
 	border-bottom-style: dotted;
 }
 #table_content .dataTr:HOVER {
+	background-color: #FC6;
+	cursor: pointer;
+	cursor: hand;
+}
+#table_content .dataTd:HOVER {
 	background-color: #FC6;
 	cursor: pointer;
 	cursor: hand;

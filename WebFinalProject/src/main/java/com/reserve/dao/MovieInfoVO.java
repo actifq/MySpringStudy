@@ -1,14 +1,11 @@
 package com.reserve.dao;
 
 public class MovieInfoVO {
-
-	private int mno;
-	private String title;
-	private String poster;
-	private String star;
-	private String theaterno;
-	
-	
+    private int mno;
+    private String title;
+    private String poster;
+    private String star;
+    private String theaterno;
 	public int getMno() {
 		return mno;
 	}
@@ -39,7 +36,5 @@ public class MovieInfoVO {
 	public void setTheaterno(String theaterno) {
 		this.theaterno = theaterno;
 	}
-	
-	
-	
+   
 }

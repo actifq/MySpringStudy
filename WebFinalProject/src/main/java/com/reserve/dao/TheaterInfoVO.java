@@ -1,14 +1,10 @@
 package com.reserve.dao;
 
 public class TheaterInfoVO {
-
-	private int tno;
-	private String tname;
-	private String loc;
-	private String timeno;
-	
-	
-	
+    private int tno;
+    private String tname;
+    private String loc;
+    private String timeno;
 	public int getTno() {
 		return tno;
 	}
@@ -33,7 +29,5 @@ public class TheaterInfoVO {
 	public void setTimeno(String timeno) {
 		this.timeno = timeno;
 	}
-
-	
-	
+  
 }

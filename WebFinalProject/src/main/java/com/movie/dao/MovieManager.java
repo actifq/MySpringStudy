@@ -165,13 +165,13 @@ public class MovieManager {
 	   return list;
    }
    // C:\springDev\springStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WebFinalProject\images
-   // 	cdcb15981eecc6effefb51aa33302b28
+   // 7b429affa32c43e1adf62ad1eebb6928
    public String review_data(String title,int page)
    {
 	   StringBuffer sb=new StringBuffer();
 	   try
 	   {
-		   String key="cdcb15981eecc6effefb51aa33302b28";
+		   String key="7b429affa32c43e1adf62ad1eebb6928";
 		   URL url=new URL("https://apis.daum.net/search/blog?apikey="+key
 				   +"&result=20&output=json&q="+URLEncoder.encode(title, "UTF-8")
 				   +"&pageno="+page);
@@ -202,7 +202,6 @@ public class MovieManager {
    public List<String> jsonParse(String json)
    {
 	   List<String> list=new ArrayList<String>();
-	   
 	   try
 	   {
 		   JSONParser jp=new JSONParser();
@@ -255,6 +254,8 @@ public class MovieManager {
 			   list.add(data);
 			   desc+=data+"\n";
 		   }
+		   
+		   //System.out.println(desc);
 		   FileWriter fw=new FileWriter("C:\\springDev\\springStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WebFinalProject\\images\\desc.txt",true);
 		   fw.write(desc);
 		   fw.close();
@@ -262,7 +263,7 @@ public class MovieManager {
 	   {
 		   System.out.println(ex.getMessage());
 	   }
-	return list;
+	   return list;
    }
    public void wordcloud()
    {

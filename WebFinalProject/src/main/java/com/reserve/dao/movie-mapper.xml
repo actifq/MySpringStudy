@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.reserve.dao.movie-mapper">
-	
-	<select id="movieInfoData" resultType="Movie">
-		SELECT * FROM movieInfo
-	</select>
-	
-	<select id="theaterInfoData" resultType="Theater">
-		SELECT * FROM theaterInfo
-	</select>
-	
+  <select id="movieInfoData" resultType="Movie">
+    SELECT * FROM movieInfo
+  </select>
+  <select id="theaterNumber" resultType="String" parameterType="int">
+    SELECT theaterno FROM movieInfo
+    WHERE mno=#{mno}
+  </select>
+  <select id="theaterInfoData" resultType="Theater" parameterType="int">
+    SELECT * FROM theaterInfo
+    WHERE tno=#{tno}
+  </select>
+  <select id="timeInfoData" resultType="String" parameterType="int">
+    SELECT time FROM timeInfo
+    WHERE tno=#{tno}
+  </select>
 </mapper>
+
+
+

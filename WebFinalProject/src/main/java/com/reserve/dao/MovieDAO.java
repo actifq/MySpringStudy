@@ -1,14 +1,13 @@
 package com.reserve.dao;
 
 import java.io.Reader;
-import java.util.*;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
+import java.util.*;
 public class MovieDAO {
-
 	private static SqlSessionFactory ssf;
     static
     {
@@ -21,22 +20,39 @@ public class MovieDAO {
     		System.out.println(ex.getMessage());
     	}
     }
-    
-    public static List<MovieInfoVO> movieInfoData(){
+    public static List<MovieInfoVO> movieInfoData()
+    {
     	SqlSession session=ssf.openSession();
     	List<MovieInfoVO> list=session.selectList("movieInfoData");
     	session.close();
     	return list;
     }
-    
-    public static List<TheaterInfoVO> theaterInfoData(){
+    public static List<TheaterInfoVO> theaterInfoData()
+    {
     	SqlSession session=ssf.openSession();
     	List<TheaterInfoVO> list=session.selectList("theaterInfoData");
     	session.close();
     	return list;
     }
-    
-    
-    
-	
+    public static String theaterNumber(int mno)
+    {
+    	SqlSession session=ssf.openSession();
+    	String list=session.selectOne("theaterNumber",mno);
+    	session.close();
+    	return list;
+    }
+    public static TheaterInfoVO theaterInfoData(int tno)
+    {
+    	SqlSession session=ssf.openSession();
+    	TheaterInfoVO list=session.selectOne("theaterInfoData",tno);
+    	session.close();
+    	return list;
+    }
+    public static String timeInfoData(int tno)
+    {
+    	SqlSession session=ssf.openSession();
+    	String list=session.selectOne("timeInfoData",tno);
+    	session.close();
+    	return list;
+    }
 }

@@ -1,11 +1,8 @@
 package com.reserve.dao;
 
 public class TimeInfoVO {
-
-	private int tno;
-	private String time;
-	
-	
+    private int tno;
+    private String time;
 	public int getTno() {
 		return tno;
 	}
@@ -18,7 +15,5 @@ public class TimeInfoVO {
 	public void setTime(String time) {
 		this.time = time;
 	}
-
-	
-	
+	   
 }

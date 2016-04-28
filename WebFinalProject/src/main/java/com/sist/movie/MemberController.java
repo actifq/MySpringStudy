@@ -1,14 +1,16 @@
 package com.sist.movie;
 
-import java.util.*;
+import java.util.StringTokenizer;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import com.member.dao.MemberDAO;
 import com.member.dao.MemberDTO;
 import com.member.dao.ZipcodeDTO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
-
+import java.util.*;
 @Controller("mc")
 public class MemberController {
    @RequestMapping("login.do")
@@ -40,26 +42,25 @@ public class MemberController {
 	   session.invalidate();
 	   return "user/member/logout.jsp";
    }
-   
    @RequestMapping("join.do")
-   public String memberJoin(HttpServletRequest req){
+   public String memberJoin(HttpServletRequest req)
+   {
 	   req.setAttribute("jsp", "member/join.jsp");
 	   return "user/main.jsp";
    }
    @RequestMapping("idcheck_ok.do")
-   public String memberIdCheck(HttpServletRequest req){
-	   
+   public String memberIdCheck(HttpServletRequest req)
+   {
 	   String id=req.getParameter("id");
 	   int count=MemberDAO.memberIdCheck(id);
 	   req.setAttribute("count", count);
-	   
 	   return "user/member/idcheck_ok.jsp";
    }
-   
    @RequestMapping("postfind_ok.do")
-   public String postfine_ok(HttpServletRequest req)
-   throws Exception{
-	   // android,ajax(js) ==> EUC-KR 인식을 못함.. UTF-8로만 받아야됨
+   public String postfind_ok(HttpServletRequest req)
+   throws Exception
+   {
+	   // android,ajax(js) ==> UTF-8
 	   req.setCharacterEncoding("UTF-8");
 	   String dong=req.getParameter("dong");
 	   List<ZipcodeDTO> list=MemberDAO.postfindAllData(dong);

@@ -11,15 +11,15 @@
 <body>
   <center>
      <h3>${vo.title } 상세보기</h3>
-     <c:if test="${sessionScope.id!=null }">
-     <table id="table_content">
-       <tr>
-        <td align=right>
-         <a href="movie_reserve.do">
-         <img src="images/btn_buy.gif"></a>
-        </td>
-       </tr>
-     </table>
+     <c:if test="${sessionScope.id!=null and sessionScope.admin!=1}">
+	     <table id="table_content">
+	       <tr>
+	        <td align=right>
+	         <a href="movie_reserve.do">
+	         <img src="images/btn_buy3.gif"></a>
+	        </td>
+	       </tr>
+	     </table>
      </c:if>
      <table id="table_content">
        <tr>

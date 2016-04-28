@@ -11,37 +11,41 @@
 <script type="text/javascript" src="ajax.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.theater_name').click(function(){
-		var tname=$(this).text();
-		$('#span_tname').text("극장명:"+tname);
-		sendMessage("POST", "reserve_date.do", null, reserveDate);
+	$('.res_time').click(function(){
+		var time=$(this).text();
+		$('#span_time').text("상영시간:"+time);
+		sendMessage("POST", "inwon_info.do", null, inwonInfo)
 	});
 });
-function reserveDate()
+function inwonInfo()
 {
 	if(httpRequest.readyState==4)
 	{
 		if(httpRequest.status==200)
 		{
 			
-			$('#di').html(httpRequest.responseText);
+			$('#res_inwon').html(httpRequest.responseText);
 		}
 	}
 }
 </script>
 </head>
 <body>
-  <center>
-    <table id="table_content" style="width:180px">
-      <tr>
-        <th>극장정보</th>
-      </tr>
-      <c:forEach var="vo" items="${list }">
-        <tr class="dataTr">
-          <td class="theater_name" id="${vo.tno }">${vo.tname }(${vo.loc })</td>
-        </tr>
-      </c:forEach>
-    </table>
-  </center>
+   <center>
+     <table id="table_content" width=450>
+       <tr>
+         <th colspan="5">시간 정보</th>
+       </tr>
+       <tr>
+         <c:forEach var="time" items="${list }">
+           <td class="res_time dataTd">${time }</td>
+         </c:forEach>
+       </tr>
+     </table>
+   </center>
 </body>
 </html>
+
+
+
+

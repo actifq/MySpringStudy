@@ -160,6 +160,21 @@ public class BoardDAO {
     	session.update("replyDepthDecrement",no);
     	session.close();
     }
+    
+    public static void boardDelete(int no)
+    {
+    	SqlSession session=ssf.openSession(true);
+    	session.delete("replyAllDelete",no);
+    	session.delete("boardDelete",no);
+    	session.close();
+    }
+    public static String boardGetPwd(int no)
+    {
+    	SqlSession session=ssf.openSession();
+    	String pwd=session.selectOne("boardGetPwd2", no);
+    	session.close();
+    	return pwd;
+    }
 }
 
 

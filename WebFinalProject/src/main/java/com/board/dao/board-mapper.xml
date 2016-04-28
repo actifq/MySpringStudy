@@ -140,6 +140,19 @@
    depth=depth-1
    WHERE no=#{no}
   </update>
+  <!-- 게시물 삭제 -->
+  <delete id="replyAllDelete" parameterType="int">
+    DELETE FROM reply
+    WHERE bno=#{bno}
+  </delete>
+  <delete id="boardDelete" parameterType="int">
+    DELETE FROM replyBoard
+    WHERE no=#{no}
+  </delete>
+  <select id="boardGetPwd2" parameterType="int" resultType="String">
+    SELECT pwd FROM replyBoard
+    WHERE no=#{no}
+  </select>
 </mapper>
 
 

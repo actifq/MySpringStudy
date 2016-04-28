@@ -165,47 +165,49 @@ public class BoardController {
 	   return "user/board/reply_ok.jsp";
    }
    @RequestMapping("reply_delete.do")
-   public String reply_delete(HttpServletRequest req){
+   public String reply_delete(HttpServletRequest req)
+   {
 	   String no=req.getParameter("no");
 	   String page=req.getParameter("page");
 	   String bno=req.getParameter("bno");
-	   
-	   //DB 연동
+	   // DB연동 
 	   ReplyVO vo=BoardDAO.replyDeleteData(Integer.parseInt(no));
-	   if(vo.getDepth()==0){
+	   if(vo.getDepth()==0)
+	   {
 		   BoardDAO.replyDelete(Integer.parseInt(no));
 		   BoardDAO.replyDepthDecrement(vo.getRoot());
 	   }
-	   else{
+	   else
+	   {
 		   BoardDAO.replyMsgUpdate(Integer.parseInt(no));
 	   }
 	   req.setAttribute("no", bno);
 	   req.setAttribute("page", page);
 	   return "user/board/reply_ok.jsp";
    }
+   @RequestMapping("board_delete.do")
+   public String board_delete(HttpServletRequest req)
+   {
+	   String no=req.getParameter("no");
+	   String page=req.getParameter("page");
+	   String pwd=req.getParameter("pwd");
+	   
+	   String db_pwd=BoardDAO.boardGetPwd(Integer.parseInt(no));
+	   boolean bCheck=false;
+	   if(db_pwd.equals(pwd))
+	   {
+		   bCheck=true;
+		   BoardDAO.boardDelete(Integer.parseInt(no));
+	   }
+	   else
+	   {
+		   bCheck=false;
+	   }
+	   req.setAttribute("page", page);
+	   req.setAttribute("bCheck", bCheck);
+	   return "user/board/delete.jsp";
+   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
