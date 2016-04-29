@@ -2,7 +2,9 @@ package com.sist.movie;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+import org.rosuda.REngine.REXP;
+import org.rosuda.REngine.Rserve.RConnection;
+import org.springframework.http.HttpRequest;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.movie.dao.*;
@@ -10,13 +12,14 @@ import com.reserve.dao.MovieDAO;
 import com.reserve.dao.MovieInfoVO;
 import com.reserve.dao.ReserveVO;
 import com.reserve.dao.TheaterInfoVO;
-
 import java.io.File;
 import java.util.*;
 import java.text.*;
+
 @Controller("movie")
 public class MovieController {
-    @RequestMapping("movie.do")
+    
+	@RequestMapping("movie.do")
     public String movie_main(HttpServletRequest req)
     {
     	MovieManager m=new MovieManager();
@@ -25,6 +28,7 @@ public class MovieController {
     	req.setAttribute("jsp", "movie/movie_main.jsp");
     	return "user/main.jsp";
     }
+    
     @RequestMapping("movie_detail.do")
     public String movie_detail(HttpServletRequest req)
     {
@@ -52,12 +56,14 @@ public class MovieController {
     	
     	return "user/main.jsp";
     }
+    
     @RequestMapping("movie_reserve.do")
     public String movie_reserve(HttpServletRequest req)
     {
     	req.setAttribute("jsp", "movie/movie_reserve.jsp");
     	return "user/main.jsp";
     }
+    
     @RequestMapping("movie_info.do")
     public String movie_info(HttpServletRequest req)
     {
@@ -66,6 +72,7 @@ public class MovieController {
     	req.setAttribute("list", list);
     	return "user/movie/movie_info.jsp";
     }
+    
     @RequestMapping("theater_info.do")
     public String theater_info(HttpServletRequest req)
     {
@@ -83,6 +90,7 @@ public class MovieController {
     	req.setAttribute("list", list);
     	return "user/movie/theater_info.jsp";
     }
+    
     @RequestMapping("reserve_date.do")
     public String reserve_date(HttpServletRequest req)
     {
@@ -142,6 +150,7 @@ public class MovieController {
     	req.setAttribute("weekList", weekList);
     	return "user/movie/reserve_date.jsp";
     }
+    
     @RequestMapping("reserve_time.do")
     public String reserve_time(HttpServletRequest req)
     {
@@ -187,11 +196,13 @@ public class MovieController {
     	req.setAttribute("list", list);
     	return "user/movie/reserve_time.jsp";
     }
+    
     @RequestMapping("inwon_info.do")
     public String inwon_info(HttpServletRequest req)
     {
     	return "user/movie/reserve_inwon.jsp";
     }
+    
     @RequestMapping("reserve_ok.do")
     public String reserve_ok(HttpServletRequest req)
     throws Exception
@@ -223,8 +234,8 @@ public class MovieController {
     }
     
     @RequestMapping("mypage.do")
-    public String mypage(HttpServletRequest req){
-    	
+    public String mypage(HttpServletRequest req)
+    {
     	HttpSession session=req.getSession();
     	String id=(String)session.getAttribute("id");
     	List<ReserveVO> list=MovieDAO.reserveUserAllData(id);
@@ -232,49 +243,90 @@ public class MovieController {
     	req.setAttribute("jsp", "movie/mypage.jsp");
     	return "user/main.jsp";
     }
-    
     @RequestMapping("admin.do")
-    public String admin(HttpServletRequest req){
+    public String admin(HttpServletRequest req)
+    {
     	
     	List<ReserveVO> list=MovieDAO.reserveAdminAllData();
     	req.setAttribute("list", list);
     	req.setAttribute("jsp", "movie/admin.jsp");
     	return "user/main.jsp";
     }
-    
     @RequestMapping("admin_ok.do")
-    public String admin_ok(HttpServletRequest req){
-    	
+    public String admin_ok(HttpServletRequest req)
+    {
     	String no=req.getParameter("no");
     	MovieDAO.reserveOkUpdate(Integer.parseInt(no));
-
-    	
-    	
     	return "user/movie/admin_ok.jsp";
     }
     
     @RequestMapping("feel.do")
-    public String feel(HttpServletRequest req){
-    	try{
-    		
-    	
-    	String no=req.getParameter("no");
-    	MovieManager m=new MovieManager();
-    	MovieDTO d=m.movieDetail(Integer.parseInt(no));
-    	MovieMainClass.movieExecute(d.getTitle());
-    	
-    	List<FeelVO> fList=MovieMainClass.createFeelData();
-    	List<MovieDTO> list=m.movieAllData();
-    	req.setAttribute("fList", fList);
-    	req.setAttribute("list", list);
-    	req.setAttribute("jsp", "movie/feel.jsp");
-    	
-    	}catch(Exception ex){
-    		System.out.println("feel:"+ex.getMessage());
+    public String feel(HttpServletRequest req)
+    {
+    	try
+    	{	
+	    	String no=req.getParameter("no");
+	    	if(no==null)
+	    		no="2";
+	    	MovieManager m=new MovieManager();
+	    	MovieDTO d=m.movieDetail(Integer.parseInt(no));
+	    	
+	    	FeelManager mm=new FeelManager();
+	    	
+	    	
+	    	
+	    	System.out.println(1);
+	    	FeelManager.movieExecute(d.getTitle());
+	    	System.out.println(2);
+	    	
+	    	List<FeelVO> fList=createFeelData();
+	    	for(FeelVO v:fList)
+	    	{
+	    		System.out.println(v.getWord()+"-"+v.getCount());
+	    	}
+	    	
+	    	List<MovieDTO> list=m.movieAllData();
+	    	req.setAttribute("fList", fList);
+	    	req.setAttribute("list", list);
+	    	req.setAttribute("jsp", "movie/feel.jsp");
+    	}catch(Exception ex)
+    	{
+    		System.out.println(ex.getMessage());
     	}
     	return "user/main.jsp";
     }
     
+    public List<FeelVO> createFeelData()
+	{
+		List<FeelVO> list=new ArrayList<FeelVO>();
+		try
+		{
+			RConnection rc=new RConnection();
+			
+			rc.voidEval("feel<-read.csv(\"c:/data/feel.csv\",header=T,sep=\",\")");
+			rc.setStringEncoding("utf8");
+			REXP p=rc.eval("feel$word");
+			String[] word=p.asStrings();
+	        rc.close();
+	        
+            rc=new RConnection();
+			
+			rc.voidEval("feel<-read.csv(\"c:/data/feel.csv\",header=T,sep=\",\")");
+			p=rc.eval("feel$count");
+			int[] count=p.asIntegers();
+			for(int i=0;i<word.length;i++)
+			{
+				FeelVO vo=new FeelVO();
+				System.out.println(count[i]);
+				vo.setWord(word[i]);
+				vo.setCount(count[i]);
+				list.add(vo);
+			}
+			rc.close();
+		}catch(Exception ex){}
+		
+		return list;
+	}
     
 }
 

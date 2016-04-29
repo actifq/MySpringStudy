@@ -1,8 +1,8 @@
 ﻿package com.movie.dao;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import kr.co.shineware.nlp.komoran.core.analyzer.Komoran;
 import kr.co.shineware.util.common.model.Pair;
 

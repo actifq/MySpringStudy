@@ -10,6 +10,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
+
 $(function () {
     $('#container').highcharts({
         chart: {
@@ -65,6 +66,7 @@ $(function () {
         }]
     });
 });
+
 </script>
 </head>
 <body>

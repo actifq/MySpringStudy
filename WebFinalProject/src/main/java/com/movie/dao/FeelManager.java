@@ -1,5 +1,4 @@
 package com.movie.dao;
-
 import java.util.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,10 +11,11 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-public class MovieMainClass {
+
+public class FeelManager {
 	static Komoran komoran=new Komoran("C:\\data");
 	static List<Word> list=new ArrayList<Word>();
-	/*public static void main(String[] arg)
+	public static void main(String[] arg)
 	{
 		movieExecute("Ω√∞£¿Ã≈ª¿⁄");
 		List<FeelVO> list=createFeelData();
@@ -23,9 +23,10 @@ public class MovieMainClass {
 		{
 			System.out.println(v.getWord()+" "+v.getCount());
 		}
-	}*/
-	public void movieExecute(String movie_name)
-	{
+	}
+	
+	public static void movieExecute(String movie_name)
+	{	
 		System.out.println("movieEx");
 		try
 		{
@@ -99,7 +100,7 @@ public class MovieMainClass {
 			System.out.println(ex.getMessage());
 		}
 	}
-	public List<FeelVO> createFeelData()
+	public static List<FeelVO> createFeelData()
 	{
 		List<FeelVO> list=new ArrayList<FeelVO>();
 		try
@@ -129,7 +130,7 @@ public class MovieMainClass {
 		
 		return list;
 	}
-	public  void komo(String s){
+	public static  void komo(String s){
 		List<List<Pair<String,String>>> result=komoran.analyze(s);
 		
 		for (List<Pair<String, String>> eojeolResult : result) {
@@ -154,7 +155,7 @@ public class MovieMainClass {
 			}
 		}
 	}
-	public  String movie_review(String movie_name,int page)
+	public static  String movie_review(String movie_name,int page)
     {
 		
     	StringBuffer sb=new StringBuffer();
@@ -184,7 +185,7 @@ public class MovieMainClass {
     	}catch(Exception ex){}
     	return sb.toString();
     }
-	public  void jsonParse(String json)
+	public static  void jsonParse(String json)
     {
     	try
     	{
@@ -214,3 +215,4 @@ public class MovieMainClass {
     	}catch(Exception ex){System.out.println(ex.getMessage());}
     }
 }
+
