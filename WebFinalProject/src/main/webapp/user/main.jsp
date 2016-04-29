@@ -61,6 +61,9 @@
 						 <li><a href="join_update.do">회원수정</a></li>
 						</c:if>
 						<li><a href="movie.do">영화</a></li>
+						<li><a href="feel.do">영화감성</a></li>
+						<li><a href="recommend.do">추천영화</a></li>
+						
 						<li><a href="review.do">리뷰</a></li>
 						<c:if test="${sessionScope.id!=null}">
 						  <li><a href="board_list.do">커뮤니티</a></li>

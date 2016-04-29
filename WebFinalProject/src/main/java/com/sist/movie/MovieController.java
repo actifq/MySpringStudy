@@ -252,6 +252,30 @@ public class MovieController {
     	
     	return "user/movie/admin_ok.jsp";
     }
+    
+    @RequestMapping("feel.do")
+    public String feel(HttpServletRequest req){
+    	try{
+    		
+    	
+    	String no=req.getParameter("no");
+    	MovieManager m=new MovieManager();
+    	MovieDTO d=m.movieDetail(Integer.parseInt(no));
+    	MovieMainClass.movieExecute(d.getTitle());
+    	
+    	List<FeelVO> fList=MovieMainClass.createFeelData();
+    	List<MovieDTO> list=m.movieAllData();
+    	req.setAttribute("fList", fList);
+    	req.setAttribute("list", list);
+    	req.setAttribute("jsp", "movie/feel.jsp");
+    	
+    	}catch(Exception ex){
+    		System.out.println("feel:"+ex.getMessage());
+    	}
+    	return "user/main.jsp";
+    }
+    
+    
 }
 
 
