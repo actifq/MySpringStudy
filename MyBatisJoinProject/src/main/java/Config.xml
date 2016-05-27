@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 
+        Connection = getConnection()
+                     disConnection()
+ -->
+ <configuration>
+    <properties resource="db.properties"/>
+    <!-- 
+           ResultSet 설정 
+     -->
+    <typeAliases>
+      <typeAlias type="com.sist.join.EmpVO" alias="Emp"/>
+      <typeAlias type="com.sist.join.DeptVO" alias="Dept"/>
+    </typeAliases>
+    <!-- 
+         Connection
+     -->
+    <environments default="development">
+      <environment id="development">
+        <transactionManager type="JDBC"/>
+        <!-- 
+            JDBC(자동) / MANAGED(수동)
+            transaction : 일괄처리 
+              = Commit
+              = Rollback
+         -->
+        <!-- DB 정보 
+             UNPOOLED : DAO => 열고 닫기를 반복
+             POOLED : DBCP
+             JNDI(큰 기업체)
+        -->
+        <dataSource type="POOLED">
+          <property name="driver" value="${driver}"/>
+          <property name="url" value="${url}"/>
+          <property name="username" value="${username}"/>
+          <property name="password" value="${password}"/>
+        </dataSource>
+        <!-- 
+             public class PooledDataSource
+             {
+                 private String driver;
+                 private String url;
+                 private String username;
+                 private String password;
+             }
+             ==> 정보 ==> DAO(getConnection(),disConnection()) 
+         -->
+      </environment>
+    </environments>
+    <mappers>
+       <!-- include(Entity) -->
+       <!-- 
+           <!ENTITY lt "<">
+                             변수 : &lt;
+           <!ENTITY xml "파일명"> 
+        -->
+        <!-- 
+              PreparedStatement
+         -->
+        <mapper resource="com/sist/join/emp-mapper.xml"/>
+        <!-- 
+              &mapper;
+         -->
+    </mappers>
+ </configuration>
+ 
+ 
+ 
+ 
+ 

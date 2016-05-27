@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.reserve.dao.movie-mapper">
+  <select id="movieInfoData" resultType="Movie">
+    SELECT * FROM movieInfo
+  </select>
+  <select id="theaterNumber" resultType="String" parameterType="int">
+    SELECT theaterno FROM movieInfo
+    WHERE mno=#{mno}
+  </select>
+  <select id="theaterInfoData" resultType="Theater" parameterType="int">
+    SELECT * FROM theaterInfo
+    WHERE tno=#{tno}
+  </select>
+  <select id="timeInfoData" resultType="String" parameterType="int">
+    SELECT time FROM timeInfo
+    WHERE tno=#{tno}
+  </select>
+  <!-- 
+        추가(예약)
+   -->
+   <insert id="reserveInsert" parameterType="Reserve">
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(no)+1,1) as no FROM reserve
+    </selectKey>
+    INSERT INTO reserve VALUES(#{no},#{id},#{title},
+    #{theater},#{day},#{time},#{inwon},#{price},0)
+   </insert>
+   <!-- 
+       mypage(출력)
+    -->
+    <select id="reserveUserAllData" resultType="Reserve" parameterType="String">
+      SELECT * FROM reserve
+      WHERE id=#{id}
+    </select>
+    <!-- 
+       admin(출력)
+     -->
+     <select id="reserveAdminAllData" resultType="Reserve">
+       SELECT * FROM reserve
+       WHERE res_check=0
+     </select>
+     <!-- 
+                 승인
+      -->
+     <update id="reserveOkUpdate" parameterType="int">
+      UPDATE reserve SET
+      res_check=1
+      WHERE no=#{no}
+     </update>
+</mapper>
+
+
+
